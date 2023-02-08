@@ -1,8 +1,11 @@
-export function add(a: number, b: number): number {
-  return a + b;
-}
+// @deno-types="npm:@types/express"
+import express from "npm:express";
+import router from "./src/routes/app.routes.ts";
 
-// Learn more at https://deno.land/manual/examples/module_metadata#concepts
-if (import.meta.main) {
-  console.log("Add 2 + 3 =", add(2, 3));
-}
+export const app = express();
+
+app.use(router);
+
+app.listen(3001, () => {
+  console.log("Server listening on port 8080");
+});

@@ -24,7 +24,7 @@ describe("/todos", () => {
       assertEquals(response.status, 200);
     });
 
-    it("should return empty list object", () => {
+    it("should return object of todos", () => {
       assertEquals(data, {
         todos: [],
       });

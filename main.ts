@@ -4,6 +4,7 @@ import router from "./src/routes/app.routes.ts";
 
 export const app = express();
 
+app.use(express.json());
 app.use(router);
 
 app.listen(3001, () => {

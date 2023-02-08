@@ -20,6 +20,14 @@ export class Todos {
   }
 
   getTodos() {
-    return this.todos;
+    return [...this.todos];
+  }
+
+  getTodosById(id: number): Todo | undefined {
+    throw new Error("Method not implemented.");
+  }
+
+  deleteTodo(id: number): void {
+    throw new Error("Method not implemented.");
   }
 }

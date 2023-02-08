@@ -1,16 +1,18 @@
 import { Request, Response } from "npm:express";
-import { TodoStatus } from "../models/todo-status.enum.ts";
-import { Todos } from "../models/todos.ts";
+import { TodosService } from "../services/todos.service.ts";
+
+const todosService = new TodosService();
 
 export const getHealthCheck = (_req: Request, res: Response) => {
-  return res.status(200).send("");
+  return res.status(200).send();
 };
 
 export const getTodos = (_req: Request, res: Response) => {
-  // Todos.getinstance().addTodo({
-  //   id: 1,
-  //   text: "Make this app",
-  //   status: TodoStatus.Todo,
-  // });
-  return res.status(200).send(Todos.getinstance());
+  const todos = todosService.getAllTodos();
+  return res.status(200).send(todos);
+};
+
+export const postTodos = (req: Request, res: Response) => {
+  todosService.addTodo(req.body);
+  return res.status(201).send(req.body);
 };

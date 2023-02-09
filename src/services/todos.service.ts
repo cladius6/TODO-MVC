@@ -1,22 +1,42 @@
-import { Todo } from "../models/todo.interface.ts";
-import { Todos } from "../models/todos.ts";
+import sql from "../databases/sql.ts";
+import { IAddTodo, IUpdateTodo } from "../models/todos.interfaces.ts";
 
 export class TodosService {
-  private todos = Todos.getinstance();
+  tableName: string;
 
-  getAllTodos(): Todo[] {
-    return this.todos.getTodos();
+  constructor(tableName: string) {
+    this.tableName = tableName;
   }
 
-  addTodo(todo: Todo): void {
-    this.todos.addTodo(todo);
+  async getAllTodos() {
+    const todos = await sql`
+    SELECT * FROM  ${sql(this.tableName)} ORDER BY id ASC;
+    `;
+    return todos;
   }
 
-  getTodoById(id: number): Todo | undefined {
-    return this.todos.getTodosById(id);
+  async addTodo(todo: IAddTodo): Promise<void> {
+    await sql`
+      INSERT INTO ${sql(this.tableName)} (name, description) values (${
+      todo.name
+    }, ${todo.description})
+    `;
+    return;
   }
 
-  deleteTodo(id: number): void {
-    this.todos.deleteTodo(id);
+  async updateTodo(todo: IUpdateTodo): Promise<void> {
+    await sql`
+      UPDATE ${sql(this.tableName)} SET name = ${todo.name}, description = ${
+      todo.description
+    } WHERE id = ${todo.id}
+    `;
+    return;
+  }
+
+  async deleteTodo(id: number): Promise<void> {
+    await sql`
+      DELETE FROM ${sql(this.tableName)} WHERE id = ${id}
+    `;
+    return;
   }
 }

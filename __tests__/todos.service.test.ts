@@ -75,7 +75,7 @@ it("Add todo", async function () {
 
 it("Delete todo", async function () {
   const todoToDelete = testData[0];
-  await todosService.deleteTodo(1);
+  await todosService.deleteTodo({ id: 1 });
 
   const result = await todosService.getAllTodos();
 

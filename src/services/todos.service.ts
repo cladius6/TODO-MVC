@@ -1,5 +1,9 @@
 import sql from "../databases/sql.ts";
-import { IAddTodo, IUpdateTodo } from "../models/todos.interfaces.ts";
+import {
+  IAddTodo,
+  IUpdateTodo,
+  IDeleteTodo,
+} from "../models/todos.interfaces.ts";
 
 export class TodosService {
   tableName: string;
@@ -33,9 +37,9 @@ export class TodosService {
     return;
   }
 
-  async deleteTodo(id: number): Promise<void> {
+  async deleteTodo(todo: IDeleteTodo): Promise<void> {
     await sql`
-      DELETE FROM ${sql(this.tableName)} WHERE id = ${id}
+      DELETE FROM ${sql(this.tableName)} WHERE id = ${todo.id}
     `;
     return;
   }

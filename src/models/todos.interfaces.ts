@@ -17,3 +17,7 @@ export interface IUpdateTodo {
   name: string;
   description: string;
 }
+
+export interface IDeleteTodo {
+  id: number;
+}

@@ -1,5 +1,6 @@
 import { Router } from "npm:express";
 import {
+  deleteTodos,
   getHealthCheck,
   getTodos,
   postTodos,
@@ -12,6 +13,8 @@ const router = Router();
 router.get("/health-check", getHealthCheck);
 router.get("/todos", getTodos);
 router.post("/todos", postTodos);
+router.put("/todos", postTodos);
+router.delete("/todos", deleteTodos);
 
 router.use("/swagger", swaggerUi.serve);
 router.get("/swagger", swaggerUi.setup(swaggerDocument));
